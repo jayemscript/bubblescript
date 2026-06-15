@@ -1,0 +1,13 @@
+bubble sum = 9 + 3
+bubble diff = 10 - 5
+bubble product = 2 * 6
+bubble quotient = 9 / 3
+bubble remainder = 10 % 3
+
+say "Sum: {sum}"
+say "Diff: {diff}"
+say "Prod: {product}"
+say "Quotient: {quotient}"
+say "Remainder: {remainder}"
+
+
