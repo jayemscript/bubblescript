@@ -1,0 +1,8 @@
+bubble name = "John Mark"
+bubble age = 24
+bubble color = "Red"
+bubble temp = 30.1
+const bubble liar = true
+bubble sum 9 + 9
+
+say "My name is John mark"
