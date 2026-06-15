@@ -1,0 +1,4 @@
+bubble name = " "
+bubble version = "0.0.1"
+const bubble lang = "bubblescript"
+say "{lang} v{version} - made by {name}"

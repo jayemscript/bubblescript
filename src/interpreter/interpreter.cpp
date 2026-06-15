@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 
+// ---------------------------------------------------------------------------
 // Helpers
+// ---------------------------------------------------------------------------
 
 static std::string parseEscapes(const std::string& input)
 {
@@ -25,7 +27,7 @@ static std::string parseEscapes(const std::string& input)
             case 't':  out += '\t'; break;
             case '\\': out += '\\'; break;
             case '"':  out += '"';  break;
-            default:   out += input[i]; break; // unknown escape — keep as-is
+            default:   out += input[i]; break;
         }
     }
 
@@ -43,7 +45,9 @@ static bool isBlankOrComment(const std::string& line)
     return line.empty() || line.rfind("//", 0) == 0;
 }
 
+// ---------------------------------------------------------------------------
 // Interpreter
+// ---------------------------------------------------------------------------
 
 void Interpreter::executeFile(const std::string& path)
 {
@@ -64,39 +68,57 @@ void Interpreter::executeFile(const std::string& path)
         if (isBlankOrComment(line))
             continue;
 
-        if (line.rfind("say ", 0) != 0)
-            continue;
-
-        std::string text = line.substr(4); // text after "say "
-
-        // Single-line string:  say "hello\nworld"
-        if (text.size() >= 2 && text.front() == '"' && text.back() == '"')
+        // -----------------------------------------------------------------
+        // const bubble name = "value" // immutable
+        // -----------------------------------------------------------------
+        if (line.rfind("const bubble ", 0) == 0)
         {
-            std::string content = text.substr(1, text.size() - 2);
-            std::cout << parseEscapes(content) << "\n";
+            parseBubble(line, true);
             continue;
         }
 
-        // Multi-line string:
-        //   say "line one
-        //   line two"
+        // -----------------------------------------------------------------
+        // bubble name = "value"
+        // -----------------------------------------------------------------
+        if (line.rfind("bubble ", 0) == 0)
+        {
+            parseBubble(line, false);
+            continue;
+        }
+
+        // -----------------------------------------------------------------
+        // say "..."
+        // -----------------------------------------------------------------
+        if (line.rfind("say ", 0) != 0)
+            continue;
+
+        std::string text = line.substr(4);
+
+        // Single-line string
+        if (text.size() >= 2 && text.front() == '"' && text.back() == '"')
+        {
+            std::string content = text.substr(1, text.size() - 2);
+            std::cout << parseEscapes(interpolate(content)) << "\n";
+            continue;
+        }
+
+        // Multi-line string
         if (!text.empty() && text.front() == '"')
         {
-            std::string buffer = text.substr(1); // drop opening quote
+            std::string buffer = text.substr(1);
 
             while (std::getline(file, line))
             {
-                // A line ending with '"' closes the block
                 if (!line.empty() && line.back() == '"')
                 {
-                    buffer += "\n" + line.substr(0, line.size() - 1); // drop closing quote
+                    buffer += "\n" + line.substr(0, line.size() - 1);
                     break;
                 }
 
                 buffer += "\n" + line;
             }
 
-            std::cout << parseEscapes(buffer) << "\n";
+            std::cout << parseEscapes(interpolate(buffer)) << "\n";
         }
     }
 }

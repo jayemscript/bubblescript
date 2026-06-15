@@ -13,7 +13,10 @@ endif()
 add_executable(
     bubblescript
     src/main.cpp
-    src/interpreter/Interpreter.cpp
+
+    # interpreter
+    src/interpreter/interpreter.cpp
+    src/interpreter/variables.cpp
 )
 
 target_include_directories(
