@@ -1,4 +1,38 @@
-bubble name = " "
-bubble version = "0.0.1"
-const bubble lang = "bubblescript"
-say "{lang} v{version} - made by {name}"
+// bubble name = " "
+// bubble version = "0.0.1"
+// const bubble lang = "bubblescript"
+// say "{lang} v{version} - made by {name}"
+
+// numbers.txt - testing number type
+
+// integer
+// bubble age = 25
+// say "Age: {age}"
+
+// float
+// bubble price = 9.99
+// say "Price: {price}"
+
+// const number
+// const bubble pi = 3.14159
+// say "Pi: {pi}"
+
+// negative number
+// bubble temp = -10
+// say "Temperature: {temp}"
+
+// reassign number
+// bubble age = 30
+// say "New age: {age}"
+
+// type mismatch should error
+// bubble age = "hello"
+
+// const reassign should error
+// const bubble pi = 999
+
+bubble name = "John Mark"
+bubble age = 24
+bubble color = "red"
+
+say "My name is {name} and i'm {age} years old, and my favorite color is {color}"
