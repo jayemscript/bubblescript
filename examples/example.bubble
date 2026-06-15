@@ -2,7 +2,10 @@ bubble name = "John Mark"
 bubble age = 24
 bubble color = "Red"
 bubble temp = 30.1
-const bubble liar = true
-bubble sum 9 + 9
+const bubble isTrue = true
+bubble sum = 9 + 9
 
-say "My name is John mark"
+say "My name is {name} and i'm {age} years old, my favorite color is {color}\t
+right now the temperature is {temp} celcius this is {isTrue} i checked it on my cellphone
+i can also do basic arithmetic operations like 9 + 9 is {sum}
+"
