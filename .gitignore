@@ -1,0 +1,223 @@
+# =============================================================================
+# LLM Systems From Scratch — .gitignore
+# C++ / Rust / Python / JavaScript (WASM)
+# =============================================================================
+
+# =============================================================================
+# C++ — Build Artifacts
+# =============================================================================
+build/
+out/
+dist/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.make
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Compiled objects and binaries
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.i
+*.ii
+*.s
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Debug / profiling
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.ilk
+
+# =============================================================================
+# Rust
+# =============================================================================
+target/
+Cargo.lock
+**/*.rs.bk
+*.pyo
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# mypy / pytype
+.mypy_cache/
+.pytype/
+.dmypy.json
+dmypy.json
+
+# pytest
+.pytest_cache/
+.cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# =============================================================================
+# JavaScript / WebAssembly
+# =============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+.yarn/
+
+*.wasm.map
+dist/
+.parcel-cache/
+.next/
+.nuxt/
+
+# =============================================================================
+# Editor and IDE
+# =============================================================================
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains (CLion, IntelliJ, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Neovim
+*.swp
+*.swo
+*~
+Session.vim
+.netrwhist
+
+# Emacs
+*#
+.#*
+\#*#
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# =============================================================================
+# OS
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+
+# =============================================================================
+# Logs and Temp
+# =============================================================================
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+tmp/
+temp/
+logs/
+
+# =============================================================================
+# Model Weights and Large Data Files
+# =============================================================================
+*.bin
+*.pt
+*.pth
+*.gguf
+*.ggml
+*.safetensors
+*.npz
+*.npy
+data/
+weights/
+checkpoints/
+models/
+
+# =============================================================================
+# Docker (for when docker/ folder is added)
+# =============================================================================
+.dockerignore
+
+# =============================================================================
+# Secrets and Environment
+# =============================================================================
+.env
+.env.*
+*.key
+*.pem
+*.cert
+secrets/
