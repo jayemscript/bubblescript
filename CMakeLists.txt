@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(llm-systems-from-scratch LANGUAGES CXX)
+project(bubblescript LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -10,11 +10,20 @@ if(WIN32)
 endif()
 
 # Modules
-add_subdirectory(src/tensor)
+add_executable(
+    bubblescript
+    src/main.cpp
+    src/interpreter/Interpreter.cpp
+)
+
+target_include_directories(
+    bubblescript
+    PRIVATE
+    src
+)
 
 # Tests
 option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
     enable_testing()
-    add_subdirectory(tests/tensor)
 endif()
