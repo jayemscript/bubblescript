@@ -34,6 +34,12 @@ static bool isNumber(const std::string& s)
     return true;
 }
 
+static bool isBoolean(const std::string& s)
+{
+    return s == "true" || s == "false";
+}
+
+
 // ---------------------------------------------------------------------------
 // parseBubble
 //
@@ -81,6 +87,11 @@ void Interpreter::parseBubble(const std::string& line, bool isConst)
     {
         // number: keep value as-is (stored as string internally)
         type = VarType::Number;
+    }
+    else if (isBoolean(value))
+    {
+        // boolean: detect if true or false
+        type = VarType::Boolean;
     }
     else
     {

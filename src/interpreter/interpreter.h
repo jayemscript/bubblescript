@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 
-enum class VarType { String, Number };
+enum class VarType { String, Number, Boolean };
 
 struct Variable
 {

@@ -31,8 +31,13 @@
 // const reassign should error
 // const bubble pi = 999
 
-bubble name = "John Mark"
-bubble age = 24
-bubble color = "red"
+// bubble name = "John Mark"
+// bubble age = 24
+// bubble color = "red"
 
-say "My name is {name} and i'm {age} years old, and my favorite color is {color}"
+// say "My name is {name} and i'm {age} years old, and my favorite color is {color}"
+
+// bubble isApproved = true
+// bubble isApproved = false
+
+// say "is this approved?: {isApproved}"
