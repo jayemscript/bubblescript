@@ -1,3 +1,2 @@
-say "Hello BubbleScript 
-There
-"
+// this is a comment
+say "Hello BubbleScript"

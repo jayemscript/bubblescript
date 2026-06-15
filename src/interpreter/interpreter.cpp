@@ -25,6 +25,14 @@ void Interpreter::executeFile(const std::string& path)
         if (line.rfind("say ", 0) != 0)
             continue;
 
+        // skip empty lines
+        if (line.empty())
+            continue;
+
+        // remove comments
+        if (line.rfind("//", 0) == 0)
+            continue;
+
         std::string text = line.substr(4);
 
         // -----------------------------
