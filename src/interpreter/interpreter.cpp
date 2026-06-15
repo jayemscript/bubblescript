@@ -4,13 +4,54 @@
 #include <iostream>
 #include <string>
 
+// Helpers
+
+static std::string parseEscapes(const std::string& input)
+{
+    std::string out;
+    out.reserve(input.size());
+
+    for (size_t i = 0; i < input.size(); ++i)
+    {
+        if (input[i] != '\\' || i + 1 >= input.size())
+        {
+            out += input[i];
+            continue;
+        }
+
+        switch (input[++i])
+        {
+            case 'n':  out += '\n'; break;
+            case 't':  out += '\t'; break;
+            case '\\': out += '\\'; break;
+            case '"':  out += '"';  break;
+            default:   out += input[i]; break; // unknown escape — keep as-is
+        }
+    }
+
+    return out;
+}
+
+static std::string trimLeft(const std::string& s)
+{
+    size_t start = s.find_first_not_of(' ');
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+
+static bool isBlankOrComment(const std::string& line)
+{
+    return line.empty() || line.rfind("//", 0) == 0;
+}
+
+// Interpreter
+
 void Interpreter::executeFile(const std::string& path)
 {
     std::ifstream file(path);
 
     if (!file.is_open())
     {
-        std::cerr << "Cannot open file: " << path << std::endl;
+        std::cerr << "Cannot open file: " << path << "\n";
         return;
     }
 
@@ -18,62 +59,44 @@ void Interpreter::executeFile(const std::string& path)
 
     while (std::getline(file, line))
     {
-        // trim leading spaces
-        while (!line.empty() && line[0] == ' ')
-            line.erase(0, 1);
+        line = trimLeft(line);
+
+        if (isBlankOrComment(line))
+            continue;
 
         if (line.rfind("say ", 0) != 0)
             continue;
 
-        // skip empty lines
-        if (line.empty())
-            continue;
+        std::string text = line.substr(4); // text after "say "
 
-        // remove comments
-        if (line.rfind("//", 0) == 0)
-            continue;
-
-        std::string text = line.substr(4);
-
-        // -----------------------------
-        // SINGLE LINE CASE
-        // -----------------------------
-        if (!text.empty() &&
-            text.front() == '"' &&
-            text.back() == '"')
+        // Single-line string:  say "hello\nworld"
+        if (text.size() >= 2 && text.front() == '"' && text.back() == '"')
         {
-            text = text.substr(1, text.size() - 2);
-            std::cout << text << std::endl;
+            std::string content = text.substr(1, text.size() - 2);
+            std::cout << parseEscapes(content) << "\n";
             continue;
         }
 
-        // -----------------------------
-        // MULTI-LINE CASE
-        // -----------------------------
+        // Multi-line string:
+        //   say "line one
+        //   line two"
         if (!text.empty() && text.front() == '"')
         {
-            std::string buffer = text.substr(1); // remove first quote
-            buffer += "\n";
+            std::string buffer = text.substr(1); // drop opening quote
 
             while (std::getline(file, line))
             {
-                buffer += line + "\n";
-
-                // check if this line ends the string
-                if (!line.empty() && line.find('"') != std::string::npos)
+                // A line ending with '"' closes the block
+                if (!line.empty() && line.back() == '"')
                 {
-                    // remove trailing quote safely
-                    if (!buffer.empty() && buffer.back() == '\n')
-                        buffer.pop_back();
-
-                    size_t endQuote = buffer.find_last_of('"');
-                    if (endQuote != std::string::npos)
-                        buffer = buffer.substr(0, endQuote);
-
-                    std::cout << buffer << std::endl;
+                    buffer += "\n" + line.substr(0, line.size() - 1); // drop closing quote
                     break;
                 }
+
+                buffer += "\n" + line;
             }
+
+            std::cout << parseEscapes(buffer) << "\n";
         }
     }
 }

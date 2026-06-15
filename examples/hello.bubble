@@ -1,2 +1,12 @@
-// this is a comment
-say "Hello BubbleScript"
+// hello.bubble - example Bubble script
+
+say "Hello, World!"
+
+say "Escape sequences work too:\n\tTabbed line\n\tAnother tab"
+
+say "Multi-line strings
+are supported
+just like this"
+
+say "You can also mix escapes\nin a \"multi-line"
+block like this one"
